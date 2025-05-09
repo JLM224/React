@@ -10,6 +10,8 @@ import Contactpage from "./pages/Contactpage"
 import Registerpage from "./pages/Registerpage"
 import Error404 from "./pages/Error404"
 import FooterC from "./components/footer/FooterC"
+import AdminProductspage from "./pages/AdminProductspage"
+import AdminUserspage from "./pages/AdminUserspage"
 
 
 const App = () => {
@@ -26,6 +28,8 @@ const App = () => {
             <Route path="/aboutus" element={<AboutUspage/>}/>
             <Route path="/contactos" element={<Contactpage/>}/>
             <Route path="/register" element={<Registerpage/>}/>
+            <Route path="/admin/products" element={AdminProductspage}/>
+            <Route path="/admin/users" element={AdminUserspage} />
             <Route path="*" element={<Error404/>}/>
             </Routes>
             <FooterC/>

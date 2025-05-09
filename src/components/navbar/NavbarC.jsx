@@ -42,8 +42,8 @@ const NavbarC = () => {
           ?
           <Nav className="ms-auto">
             <NavLink className="nav-link" to="/">Inicio</NavLink>
-            <NavLink className="nav-link" to="">Panel de usuarios</NavLink>
-            <NavLink className="nav-link" to="">Panel de productos</NavLink>
+            <NavLink className="nav-link" to="/admin/users">Panel de usuarios</NavLink>
+            <NavLink className="nav-link" to="/admin/products">Panel de productos</NavLink>
           </Nav>
           :
           <Nav className="ms-auto">

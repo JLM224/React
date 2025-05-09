@@ -1,36 +1,65 @@
 import { Table } from "react-bootstrap"
 
-const TableC = () => {
+const TableC = (idpage, array) => {
   return (
+    <>
     <Table striped bordered hover>
       <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-        </tr>
+          {
+            idpage === "usuarios"
+            ?
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Roll</th>
+              <th>Acciones</th>
+            </tr>
+            :
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Detalle</th>
+              <th>Imagen</th>
+              <th>Acciones</th>
+            </tr>
+          }
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
+        {
+          array.map((element) => 
+        idpage === "usuarios"
+          ?
+          <tr>
+          <td>{i + 1}</td>
+          <td>{element.nombreUsuario}</td>
+          <td>{element.rol}</td>
+          <td className="w-50">
+            <Button variant='warning'>Editar</Button>
+            <Button variant='danger' className='mx-3'>Eliminar</Button>
+            <Button variant='info'>Deshabilitar</Button>
+          </td>
         </tr>
+        :
         <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
+          <td>{i + 1}</td>
+          <td className="w-25">{element.title}</td>
+          <td>${element.price}</td>
+          <td className="w-25">{element.description}</td>
+          <td>
+            <img src={element.image} alt="" width={50} />
+          </td>
+          <td className="w-50">
+            <Button variant='warning'>Editar</Button>
+            <Button variant='danger' className='mx-3'>Eliminar</Button>
+            <Button variant='info'>Deshabilitar</Button>
+          </td>
         </tr>
-        <tr>
-          <td>3</td>
-          <td colSpan={2}>Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
+        )
+        }
       </tbody>
     </Table>
+    </>
   )
 }
 

@@ -8,16 +8,16 @@ const FormC = ({idpage}) => {
   const navigate = useNavigate()
   const [errores, seterrores] = useState({})
   const [formRegister, setFormRegister] = useState({
-    nombreUsuario: "",
-    emailUsuario: "",
-    contrasenia: "",
+    Usuario: "",
+    Email: "",
+    Contrasenia: "",
     repContrasenia: "",
     terminosCondiciones: false
   })
 
   const [formLogin, setFormLogin] = useState({
-    nombreUsuario:"",
-    contrasenia:""
+    Usuario:"",
+    Contrasenia:""
   })
 
 const handleChangeFormRegister = (ev) => {
@@ -28,35 +28,35 @@ const handleChangeFormRegister = (ev) => {
 const handleClickFormRegister = (ev) => {
   ev.preventDefault()
   const erroresReg = {}
-  const {nombreUsuario, emailUsuario, contrasenia, repContrasenia, terminosCondiciones} = formRegister
+  const {Usuario, Email, Contrasenia, repContrasenia, terminosCondiciones} = formRegister
 
-  if (!nombreUsuario){
-    erroresReg.nombreUsuario = "Error campo Usuario esta vacio"
-  } if(!emailUsuario){
-    erroresReg.emailUsuario = "Error campo Email esta vacio"
-  } if(!contrasenia){
-    erroresReg.contrasenia = "Error campo Contraseña esta vacio"
+  if (!Usuario){
+    erroresReg.Usuario = "Error campo Usuario esta vacio"
+  } if(!Email){
+    erroresReg.Email = "Error campo Email esta vacio"
+  } if(!Contrasenia){
+    erroresReg.Contrasenia = "Error campo Contraseña esta vacio"
   } if(!repContrasenia){
     erroresReg.repContrasenia = "Error campo Repetir Contraseña esta vacio"
   } if (!terminosCondiciones){
-    erroresReg.terminosCondiciones = "Error campo Terminos y Condiciones no fue aceptado"
+    erroresReg.terminosCondiciones = "Error Terminos y Condiciones no fue aceptado"
   } else{
     errores.campo = "Error Campo Incorrecto"
   }
 
   seterrores(erroresReg)
   
-  if(nombreUsuario && emailUsuario && contrasenia && repContrasenia && terminosCondiciones){
-    if(contrasenia === repContrasenia){
+  if(Usuario && Email && Contrasenia && repContrasenia && terminosCondiciones){
+    if(Contrasenia === repContrasenia){
       const usuarioLs = JSON.parse(localStorage.getItem("usuarios")) || []
 
       const nuevoUsuario = {
         id: usuarioLs[usuarioLs.length - 1]?.id + 1 || 1,
-        nombreUsuario,
-        emailUsuario,
-        contrasenia,
+        Usuario,
+        Email,
+        Contrasenia,
         terminosCondiciones,
-        rol: "admin",
+        rol: "usuario",
         login: false
       }
 
@@ -70,9 +70,9 @@ const handleClickFormRegister = (ev) => {
       localStorage.setItem("usuarios", JSON.stringify(usuarioLs))
 
       setFormRegister({
-    nombreUsuario: "",
-    emailUsuario: "",
-    contrasenia: "",
+    Usuario: "",
+    Email: "",
+    Contrasenia: "",
     repContrasenia: "",
     terminosCondiciones: false
       })
@@ -99,19 +99,19 @@ const handleClickFormLogin = (ev) => {
   ev.preventDefault()
   const erroresLog = {}
 
-  const {nombreUsuario, contrasenia} = formLogin
+  const {Usuario, Contrasenia} = formLogin
 
-  if(!nombreUsuario){
-    erroresLog.nombreUsuario = "El campo Usuario esta vacio"
+  if(!Usuario){
+    erroresLog.Usuario = "El campo Usuario esta vacio"
   }
 
-  if(!contrasenia){
-    erroresLog.contrasenia = "El campo Contraseña esta vacio"
+  if(!Contrasenia){
+    erroresLog.Contrasenia = "El campo Contraseña esta vacio"
   }
 
-  if(nombreUsuario && contrasenia){
+  if(Usuario && Contrasenia){
     const usuarioLs = JSON.parse(localStorage.getItem("usuarios"))
-    const usuarioExiste = usuarioLs.find((user) => user.nombreUsuario === nombreUsuario)
+    const usuarioExiste = usuarioLs.find((user) => user.Usuario === Usuario)
 
     if(!usuarioExiste){
       Swal.fire({
@@ -119,7 +119,7 @@ const handleClickFormLogin = (ev) => {
         title: "El usuario y/o contraseña no son correctos",
       });
     } else{
-      if(usuarioExiste.contrasenia === contrasenia) {
+      if(usuarioExiste.Contrasenia === Contrasenia) {
         usuarioExiste.login = true
         localStorage.setItem("usuarios", JSON.stringify(usuarioLs))
         sessionStorage.setItem("usuario", JSON.stringify(usuarioExiste))
@@ -141,10 +141,10 @@ const handleClickFormLogin = (ev) => {
     <Form>
       <Form.Group className="mb-3" controlId="idUsuario">
         <Form.Label>Usuario</Form.Label>
-        <Form.Control type="text" className={errores.nombreUsuario ? "form-control is-invalid" : "form-control" } value={idpage === "register" ? formRegister.nombreUsuario : formLogin.nombreUsuario} name='nombreUsuario' onChange={idpage === "register" ? handleChangeFormRegister : handleChangeFormLogin} />
+        <Form.Control type="text" className={errores.Usuario ? "form-control is-invalid" : "form-control" } value={idpage === "register" ? formRegister.Usuario : formLogin.Usuario} name='Usuario' onChange={idpage === "register" ? handleChangeFormRegister : handleChangeFormLogin} />
         {
-          errores.nombreUsuario && 
-          <p className='text-danger'>{errores.nombreUsuario}</p>
+          errores.Usuario && 
+          <p className='text-danger'>{errores.Usuario}</p>
         }
       </Form.Group>
 
@@ -152,20 +152,20 @@ const handleClickFormLogin = (ev) => {
         idpage === "register" &&
         <Form.Group className="mb-3" controlId="idEmail">
         <Form.Label>Email</Form.Label>
-        <Form.Control type="email" className={errores.emailUsuario ? "form-control is-invalid" : "form-control" } value={formRegister.emailUsuario} name='emailUsuario' onChange={handleChangeFormRegister} />
+        <Form.Control type="Email" className={errores.Email ? "form-control is-invalid" : "form-control" } value={formRegister.Email} name='Email' onChange={handleChangeFormRegister} />
         {
-          errores.emailUsuario && 
-          <p className='text-danger'>{errores.emailUsuario}</p>
+          errores.Email && 
+          <p className='text-danger'>{errores.Email}</p>
         }
       </Form.Group>
       }
 
       <Form.Group className="mb-3" controlId="idContrasenia">
         <Form.Label>Contraseña</Form.Label>
-        <Form.Control type="password" className={errores.contrasenia ? "form-control is-invalid" : "form-control"} value={idpage === "register" ? formRegister.contrasenia : formLogin.contrasenia} name='contrasenia' onChange={idpage === "register" ? handleChangeFormRegister : handleChangeFormLogin} />
+        <Form.Control type="password" className={errores.Contrasenia ? "form-control is-invalid" : "form-control"} value={idpage === "register" ? formRegister.Contrasenia : formLogin.Contrasenia} name='Contrasenia' onChange={idpage === "register" ? handleChangeFormRegister : handleChangeFormLogin} />
         {
-          errores.contrasenia && 
-          <p className='text-danger'>{errores.contrasenia}</p>
+          errores.Contrasenia && 
+          <p className='text-danger'>{errores.Contrasenia}</p>
         }
       </Form.Group>
 
